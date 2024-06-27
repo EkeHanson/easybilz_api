@@ -27,15 +27,12 @@ SECRET_KEY = 'django-insecure-p$6v$i8db8%&v$jukts^s8j(4_ptbb7k&4%5^**h7hlsn#afdr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['new-arts-api.onrender.com', '127.0.0.1', 'localhost','https://artstraining.co.uk/' ]
+ALLOWED_HOSTS = ['easybilz-api.onrender.com', '127.0.0.1', 'localhost','https://artstraining.co.uk/' ]
 
 
 # Application definition
 
-# git commit -m "first commit"
-# git branch -M main
-# git remote add origin https://github.com/EkeHanson/easybilz_api.git
-# git push -u origin main
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
