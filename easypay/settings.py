@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-p$6v$i8db8%&v$jukts^s8j(4_ptbb7k&4%5^**h7hlsn#afdr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['easybilz-api.onrender.com', '127.0.0.1', 'localhost','http://localhost:5173']
+ALLOWED_HOSTS = ['easybilz-api.onrender.com', '127.0.0.1', 'localhost','localhost:5173']
 
 
 # Application definition
