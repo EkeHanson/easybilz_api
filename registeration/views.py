@@ -127,23 +127,12 @@ class LoginView(APIView):
             response_data['user_type'] = user.user_type
         if hasattr(user, 'phone'):
             response_data['user_phone'] = user.phone
-        if hasattr(user, 'first_name'):
-            response_data['user_first_name'] = user.first_name
-        if hasattr(user, 'last_name'):
-            response_data['user_last_name'] = user.last_name
-
-        # Include enrolled courses count if user is a custom user
-        if hasattr(user, 'enrolled_courses'):
-            response_data['user_enrolled_courses'] = len(user.enrolled_courses.all())
-
-        # Include enrolled courses count if user is an Instructor user
-        if hasattr(user, 'courses_assigned'):
-            response_data['courses_assigned'] = user.courses_assigned
-        # Include enrolled courses count if user is an Instructor user
-        if hasattr(user, 'number_of_students'):
-            response_data['number_of_students'] = user.courses_assigned
-        if hasattr(user, 'instructor_id'):
-            response_data['instructor_id'] = user.instructor_id
+        if hasattr(user, 'firstName'):
+            response_data['firstName'] = user.firstName
+        if hasattr(user, 'otherNames'):
+            response_data['otherNames'] = user.otherNames
+        if hasattr(user, 'middleName'):
+            response_data['middleName'] = user.middleName
 
         return Response(response_data)
 
