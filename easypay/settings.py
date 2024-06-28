@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-p$6v$i8db8%&v$jukts^s8j(4_ptbb7k&4%5^**h7hlsn#afdr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['easybilz-api.onrender.com', '127.0.0.1', 'localhost','localhost:5173', 'easybilz-ekehansons-projects.vercel.app']
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['easybilz-api.onrender.com', '127.0.0.1', 'localhost','localhost:5173', 'easybilz-ekehansons-projects.vercel.app']
+
 
 
 # Application definition
@@ -68,6 +68,7 @@ ROOT_URLCONF = 'easypay.urls'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'easybilz-ekehansons-projects.vercel.app'
 ]
 
 TEMPLATES = [
