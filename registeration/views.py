@@ -76,27 +76,6 @@ def send_email(request):
 
 
 
-
-    
-    # Assuming you want to set enrolled_courses to True for this course
-    course.enrolled_courses = True
-    # Ensure number_of_students is initialized properly, e.g., to 0
-    if course.number_of_students is None:
-        course.number_of_students = 0
-    course.number_of_students += 1
-
-    # Ensure number_of_enrolled_courses is initialized properly, e.g., to 0
-    if user.number_of_enrolled_courses is None:
-        user.number_of_enrolled_courses = 0
-    user.number_of_enrolled_courses += 1
-
-    course.save()
-    user.save()
-
-    user.enrolled_courses.add(course)
-    return JsonResponse({'message': 'Course added to user successfully'})
-
-
 class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
@@ -120,20 +99,11 @@ class LoginView(APIView):
                 'refresh_token': str(refresh),
                 'user_id': user.id,
                 'user_email': user.email,
+                'firstName': user.firstName,
+                'otherName': user.otherNames,
             }
-
-        # Include additional fields if they exist
-        if hasattr(user, 'user_type'):
-            response_data['user_type'] = user.user_type
-        if hasattr(user, 'phone'):
-            response_data['user_phone'] = user.phone
-        if hasattr(user, 'firstName'):
-            response_data['firstName'] = user.firstName
-        if hasattr(user, 'otherNames'):
-            response_data['otherNames'] = user.otherNames
-        if hasattr(user, 'middleName'):
-            response_data['middleName'] = user.middleName
-
+     
+        # print(response_data)
         return Response(response_data)
 
 
