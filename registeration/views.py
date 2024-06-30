@@ -16,6 +16,8 @@ from .serializers import LoginSerializer
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 import secrets
 import datetime
+from datetime import timedelta
+from django.conf import settings
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
@@ -82,17 +84,23 @@ class LoginView(APIView):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data['email']
         password = serializer.validated_data['password']
+        remember_me = serializer.validated_data.get('remember_me', False)
 
         # Authenticate using CustomUser model
         print(email)
         print(password)
         user = authenticate(email=email, password=password)
 
-
         if user:
             print("User authenticated successfully:", user)
             # If authentication is successful, generate JWT tokens
             refresh = RefreshToken.for_user(user)
+
+            # Set token lifetime based on remember_me
+            if remember_me:
+                refresh.set_exp(lifetime=timedelta(days=14))  # Extend token expiration to 2 weeks
+            else:
+                refresh.set_exp(lifetime=settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'])
 
             response_data = {
                 'access_token': str(refresh.access_token),
@@ -102,8 +110,9 @@ class LoginView(APIView):
                 'firstName': user.firstName,
                 'otherName': user.otherNames,
             }
-     
-        # print(response_data)
+        else:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
         return Response(response_data)
 
 
