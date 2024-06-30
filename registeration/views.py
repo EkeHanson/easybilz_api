@@ -108,6 +108,7 @@ class LoginView(APIView):
                 'user_id': user.id,
                 'user_email': user.email,
                 'firstName': user.firstName,
+                'middleName': user.middleName,
                 'otherName': user.otherNames,
             }
         else:
