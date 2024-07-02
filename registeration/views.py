@@ -86,13 +86,9 @@ class LoginView(APIView):
         password = serializer.validated_data['password']
         remember_me = serializer.validated_data.get('remember_me', False)
 
-        # Authenticate using CustomUser model
-        print(email)
-        print(password)
         user = authenticate(email=email, password=password)
 
         if user:
-            print("User authenticated successfully:", user)
             # If authentication is successful, generate JWT tokens
             refresh = RefreshToken.for_user(user)
 

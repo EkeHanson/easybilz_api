@@ -10,7 +10,6 @@ urlpatterns = [
     path('', include(router.urls)),
 ]
 
-
 """
 
 // Function to get the token
