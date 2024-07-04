@@ -181,23 +181,31 @@ class JWTExampleView(APIView):
 
 class CreateUserAPIView(APIView):
     def get(self, request: Request):
-
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-        # return Response(data='No user found', status=status.HTTP_404_NOT_FOUND)
-
 
     def post(self, request: Request):
-      
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
             print("Created a User!")
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+            # Generate JWT tokens
+            refresh = RefreshToken.for_user(user)
+
+            response_data = {
+                'access_token': str(refresh.access_token),
+                'refresh_token': str(refresh),
+                'user_id': user.id,
+                'user_email': user.email,
+                'firstName': user.firstName,
+                'middleName': user.middleName,
+                'otherName': user.otherNames,
+            }
+            return Response(data=response_data, status=status.HTTP_201_CREATED)
         print("Serializer Error")
         print(serializer.errors)
-        print("Serializer Error")
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetailAPIView(APIView):

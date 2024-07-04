@@ -80,24 +80,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'easypay.wsgi.application'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'IrYpnMCauqlWyuApWJXEYumNwmLnZEWn',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '32231',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'IrYpnMCauqlWyuApWJXEYumNwmLnZEWn',
+#         'HOST': 'viaduct.proxy.rlwy.net',
+#         'PORT': '32231',
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
