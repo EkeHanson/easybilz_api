@@ -180,12 +180,12 @@ class JWTExampleView(APIView):
         return Response(content)
 
 class CreateUserAPIView(APIView):
-    def get(self, request: Request):
+    def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request: Request):
+    def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()

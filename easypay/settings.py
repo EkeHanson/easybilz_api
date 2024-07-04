@@ -87,17 +87,28 @@ WSGI_APPLICATION = 'easypay.wsgi.application'
 #     }
 # }
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'IrYpnMCauqlWyuApWJXEYumNwmLnZEWn',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '32231',
+        'NAME': 'easybilzdb',
+        'USER': 'easybilzdb_user',
+        'PASSWORD': 'Z2z3vNFkQx0TA4umC6yzehcSFTQI2iUc',
+        'HOST': 'dpg-cpui89tds78s73dtdmj0-a.oregon-postgres.render.com',
+        'PORT': '5432',  # Default port for PostgreSQL
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'IrYpnMCauqlWyuApWJXEYumNwmLnZEWn',
+#         'HOST': 'viaduct.proxy.rlwy.net',
+#         'PORT': '32231',
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
