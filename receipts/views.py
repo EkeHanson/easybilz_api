@@ -3,7 +3,6 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from .models import Payment, Receipt
 from registeration.models import CustomUser
 from .serializers import PaymentSerializer, ReceiptSerializer
@@ -19,7 +18,27 @@ class ReceiptViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        # Save the receipt first
+        receipt = serializer.save(user=self.request.user)
+
+        # Generate the dynamic URL for the receipt file
+        receipt_file_url = self.request.build_absolute_uri(receipt.upload.url) if receipt.upload else ''
+
+        # Print the dynamic URL (for debugging purposes)
+        #print(receipt_file_url)
+
+        # Send the payment confirmation email
+        email_response = self.send_payment_confirm_email(
+            email=receipt.user.email,
+            first_name=self.request.user.firstName,
+            last_name=self.request.user.otherNames,
+            receipt_file_url=receipt_file_url
+        )
+
+        # Handle email sending errors
+        if 'error' in email_response:
+            # Optionally log the error or handle it as needed
+            print(email_response['error'])
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -31,11 +50,7 @@ class ReceiptViewSet(viewsets.ModelViewSet):
             print(serializer.errors)  # Log the validation errors
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def send_payment_confirm_email(self, email, first_name, last_name):
-        # Check if the email is linked to an existing account
-        # if CustomUser.objects.filter(email=email).exists():
-        #     return {'message': 'An account with this email already exists.'}
-
+    def send_payment_confirm_email(self, email, first_name, last_name, receipt_file_url):
         if email:
             subject = 'Payment Confirmation'
             message = f'''
@@ -57,18 +72,19 @@ class ReceiptViewSet(viewsets.ModelViewSet):
                             <img src="https://artstraining.co.uk/img/site-logo.png" alt="Arts Training Logo" width="150">
                         </div>
                         <div class="content">
-                            <h3>Hi {first_name},<h3/>
-                            <p>Congratulations on your successful payment to Easybillz Cooperative.<br> This email is a confirmation of your payment.</p>
-                            <a href='https://easybilz-dzouisb3z-ekehansons-projects.vercel.app/?first_name={first_name}&last_name={last_name}&email={email}' class="button">Visit EasyBilz</a>
-                            <p>If you did not request this payment, please ignore this email.</p>
-                            <p>Thank you, <br>Easybillz Cooperative</p>
+                            <h3>Hi Admin,</h3>
+                            <p>{first_name} {last_name} with the email {email} has successfully made payment to Easybillz Cooperative account.<br> Please
+                            confirm receipt of the payment.</p>
+                            <img src="{receipt_file_url}" alt="Receipt Image" width="400">
+                            <p>If you did not receive any payment, please ignore this email.</p>
+                            <p>Thank you, <br>Easybillz Cooperative Dev. Team</p>
                         </div>
                     </div>
                 </body>
                 </html>
             '''
-            recipient_list = [email]
-            from_email = 'Do not reply <payment@easybilz.co.ng>'  # Set the no-reply email address
+            recipient_list = ["ekehanson@gmail.com", "eazybillzcoop@gmail.com"]
+            from_email = recipient_list[0]  # Set the no-reply email address
 
             try:
                 result = send_mail(subject, message, from_email, recipient_list, fail_silently=False, html_message=message)
