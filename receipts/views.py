@@ -83,8 +83,8 @@ class ReceiptViewSet(viewsets.ModelViewSet):
                 </body>
                 </html>
             '''
-            #recipient_list = ["ekenehanson@gmail.com", "eazybillzcoop@gmail.com"]
-            recipient_list = ["ekenehanson@gmail.com"]
+            recipient_list = ["eazybillzcoop@gmail.com"]
+            #recipient_list = ["ekenehanson@gmail.com"]
             from_email = recipient_list[0]  # Set the no-reply email address
 
             try:
