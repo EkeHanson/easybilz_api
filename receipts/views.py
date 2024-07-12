@@ -25,7 +25,7 @@ class ReceiptViewSet(viewsets.ModelViewSet):
         receipt_file_url = self.request.build_absolute_uri(receipt.upload.url) if receipt.upload else ''
 
         # Print the dynamic URL (for debugging purposes)
-        #print(receipt_file_url)
+        print(receipt_file_url)
 
         # Send the payment confirmation email
         email_response = self.send_payment_confirm_email(
@@ -83,7 +83,8 @@ class ReceiptViewSet(viewsets.ModelViewSet):
                 </body>
                 </html>
             '''
-            recipient_list = ["ekehanson@gmail.com", "eazybillzcoop@gmail.com"]
+            #recipient_list = ["ekenehanson@gmail.com", "eazybillzcoop@gmail.com"]
+            recipient_list = ["ekenehanson@gmail.com"]
             from_email = recipient_list[0]  # Set the no-reply email address
 
             try:
