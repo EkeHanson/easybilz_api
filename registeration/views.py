@@ -30,6 +30,57 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+
+@api_view(['POST'])
+def contact_admin_email(request):
+    if request.method == 'POST':
+        name = request.data.get('name')
+        phone = request.data.get('phone')
+        message = request.data.get('message')
+
+        print(request.data)
+        if message:
+            subject = 'Message to Admin '
+            message = f'''
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Registration Confirmation</title>
+                    <style>
+                        /* Define your CSS styles here */
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h3>Welcome to The Arts Training</h3>
+                            <img src="https://artstraining.co.uk/img/site-logo.png" alt="Arts Training Logo" width="150">
+                        </div>
+                        <div class="content">
+                            <h3>{name}, {phone}<h3/>
+                            <p>{message}</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            '''
+
+            recipient_list = ["ekehanson@gmail.com"]
+            from_email = 'Do not reply <admin@artstraining.co.uk>'  # Set the no-reply email address
+            try:
+                result = send_mail(subject, message, from_email, recipient_list, fail_silently=False, html_message=message)
+                return Response({'message': result})
+            except Exception as e:
+                return Response({'error': f'Failed to send email: {str(e)}'}, status=500)
+        else:
+            return Response({'error': 'Message not provided in POST data'}, status=400)
+    else:
+        return Response({'error': 'Invalid request method'}, status=400)
+    
+    
 @csrf_exempt
 def send_email(request):
     if request.method == 'POST':

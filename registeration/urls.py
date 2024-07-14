@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
 
     path('send-registration-email/', views.send_registration_email, name='send_registration_email'),
+    
+    path('contact_admin_email/', views.contact_admin_email, name='send_registration_email'),
 
     path('create/', views.CreateUserAPIView.as_view(), name='create_user'),
 
