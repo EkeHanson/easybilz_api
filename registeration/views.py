@@ -56,7 +56,7 @@ def contact_admin_email(request):
                 <body>
                     <div class="container">
                         <div class="header">
-                            <h3>Welcome to The Arts Training</h3>
+                            <h3>This is my concern to admin at EazyBillz Cooperation</h3>
                             <img src="https://artstraining.co.uk/img/site-logo.png" alt="Arts Training Logo" width="150">
                         </div>
                         <div class="content">
@@ -68,8 +68,8 @@ def contact_admin_email(request):
                 </html>
             '''
 
-            recipient_list = ["ekehanson@gmail.com"]
-            from_email = 'Do not reply <admin@artstraining.co.uk>'  # Set the no-reply email address
+            recipient_list = ["ekehanson@gmail.com", "eazybillzcoop@gmail.com"]
+            from_email = 'No reply <eazybillzcoop@gmail.com>'  # Set the no-reply email address
             try:
                 result = send_mail(subject, message, from_email, recipient_list, fail_silently=False, html_message=message)
                 return Response({'message': result})
