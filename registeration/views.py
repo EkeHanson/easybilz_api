@@ -240,7 +240,7 @@ class CreateUserAPIView(APIView):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            print("Created a User!")
+            # print("Created a User!")
 
             # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
@@ -255,8 +255,8 @@ class CreateUserAPIView(APIView):
                 'otherName': user.otherNames,
             }
             return Response(data=response_data, status=status.HTTP_201_CREATED)
-        print("Serializer Error")
-        print(serializer.errors)
+        # print("Serializer Error")
+        # print(serializer.errors)
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetailAPIView(APIView):
@@ -287,24 +287,24 @@ class UserDetailAPIView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        print("serializer.errors")
-        print(serializer.errors)
-        print("serializer.errors")
+        # print("serializer.errors")
+        # print(serializer.errors)
+        # print("serializer.errors")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, pk):
         """
         Partially update an existing instructor.
         """
-        print(request.data)
+        # print(request.data)
         user = self.get_object(pk)
         serializer = CustomUserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        print("serializer.errors")
-        print(serializer.errors)
-        print("serializer.errors")
+        # print("serializer.errors")
+        # print(serializer.errors)
+        # print("serializer.errors")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -323,7 +323,7 @@ def send_reset_email(user):
     
     reset_token = generate_reset_token()
     user.reset_token = reset_token
-    print(user.reset_token)
+    # print(user.reset_token)
     user.reset_token_expires = timezone.now() + datetime.timedelta(hours=10)  # Token expires in 3 hours
     user.save()
     reset_url = f'https://artstraining.co.uk/forgot-password-main.html?reset_token={reset_token}&amp;email={user.email}'
