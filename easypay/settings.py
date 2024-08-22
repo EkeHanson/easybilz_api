@@ -1,4 +1,3 @@
-# settings.py
 
 from pathlib import Path
 import os
@@ -80,35 +79,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'easypay.wsgi.application'
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'easybilzdb_361r',  # Database name
+        'USER': 'easybilzdb_361r_user',  # Database user
+        'PASSWORD': 'wlH9yPPwyGT3tiNjoSKUVA1Bgi9VHoqd',  # Password
+        'HOST': 'dpg-cr3j5aij1k6c73do5jng-a.oregon-postgres.render.com',  # Host
+        'PORT': '5432',  # Port, default is 5432 for PostgreSQL
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'easybilzdb',
-#         'USER': 'easybilzdb_user',
-#         'PASSWORD': 'Z2z3vNFkQx0TA4umC6yzehcSFTQI2iUc',
-#         'HOST': 'dpg-cpui89tds78s73dtdmj0-a.oregon-postgres.render.com',
-#         'PORT': '5432',  # Default port for PostgreSQL
-#     }
-# }
-
- 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'IrYpnMCauqlWyuApWJXEYumNwmLnZEWn',
-#         'HOST': 'viaduct.proxy.rlwy.net',
-#         'PORT': '32231',
-#     }
-# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -127,8 +114,6 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-
-
 #payment
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Your SMTP server address
@@ -138,7 +123,6 @@ EMAIL_HOST_USER = 'ekenehanson@gmail.com'  # Your email address
 EMAIL_HOST_PASSWORD = 'pduw cpmw dgoq adrp'  # Your email password or app-specific password if using Gmail, etc.
 DEFAULT_FROM_EMAIL = 'ekenehanson@gmail.com'  # The default email address to use for sending emails
 EMAIL_DEBUG = True
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
