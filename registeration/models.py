@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
     image = models.ImageField(blank=True, null=True, upload_to='user_images')
     firstName = models.CharField(max_length=255)
     otherNames = models.CharField(max_length=255, default="None")
-    middleName = models.CharField(max_length=255)
+    middleName = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)

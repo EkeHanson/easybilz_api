@@ -86,16 +86,22 @@ WSGI_APPLICATION = 'easypay.wsgi.application'
 #     }
 # }
 
+# settings.py
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'easybilzdb_361r',  # Database name
-        'USER': 'easybilzdb_361r_user',  # Database user
-        'PASSWORD': 'wlH9yPPwyGT3tiNjoSKUVA1Bgi9VHoqd',  # Password
-        'HOST': 'dpg-cr3j5aij1k6c73do5jng-a.oregon-postgres.render.com',  # Host
-        'PORT': '5432',  # Port, default is 5432 for PostgreSQL
+        'NAME': 'easybillsdb',
+        'USER': 'easybillsdb_user',
+        'PASSWORD': 'L0L51DTMkv8oRuyGJLUKySBOhEPLt8bK',
+        'HOST': 'dpg-crguth5svqrc7385ulpg-a.oregon-postgres.render.com',
+        'PORT': '5432',  # Default PostgreSQL port
+        'OPTIONS': {
+            'sslmode': 'require',  # Enforces SSL connection to the database
+        },
     }
 }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
