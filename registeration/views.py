@@ -55,7 +55,7 @@ def contact_admin_email(request):
                     <div class="container">
                         <div class="header">
                             <h3>This is my concern to admin at EazyBillz Cooperation</h3>
-                            <img src="https://artstraining.co.uk/img/site-logo.png" alt="Arts Training Logo" width="150">
+                            <img src="https://www.easybillzcoop.com/assets/Logo-ptOSNlVr.png" alt="EazyBillz Coop Logo" width="150">
                         </div>
                         <div class="content">
                             <h3>{name}, {phone}<h3/>
@@ -119,7 +119,7 @@ def send_email(request):
                         </html>
                     '''
 
-        recipients = ['info@artstraining.co.uk', 'support@artstraining.co.uk', 'ekehanson@gmail.com', 'abraham.h@turing.com']
+        recipients = ['ekehanson@gmail.com', 'abraham.h@turing.com']
         send_mail(subject, full_message, email, recipients, html_message=full_message)
 
         return JsonResponse({'status': 'success'}, status=201)
